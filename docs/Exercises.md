@@ -7,8 +7,8 @@ Tasks:
 - Add OpenTelemetry NuGet packages for tracing.
 - Set up basic TracerProvider to trace HTTP requests using AspNetCoreInstrumentation.
 - Choose an OLTP exporter:
-  - (Docker option) Add the Aspire Dashboard exporter to visualize traces: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/dashboard/standalone?tabs=powershell
-  - Add the console exporter to see traces in the console.
+    - (Docker option) Add the Aspire Dashboard exporter to visualize traces: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/dashboard/standalone?tabs=powershell
+    - Add the console exporter to see traces in the console.
 - Run the API and console app together to observe the traces in console.
 
 ## Exercise 2: Custom tracing in ASP.NET Core (10 mins)
