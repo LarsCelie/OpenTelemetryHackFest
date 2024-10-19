@@ -7,7 +7,7 @@ Tasks:
 - Add OpenTelemetry NuGet packages for tracing.
 - Set up basic TracerProvider to trace HTTP requests using AspNetCoreInstrumentation.
 - Choose an OLTP exporter:
-    - (Docker option) Add the Aspire Dashboard exporter to visualize traces: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/dashboard/standalone?tabs=powershell
+    - (Docker) Add the Aspire Dashboard exporter to visualize traces: https://learn.microsoft.com/en-us/dotnet/aspire/fundamentals/dashboard/standalone?tabs=powershell
     - Add the console exporter to see traces in the console.
 - Run the API and console app together to observe the traces in console.
 
@@ -32,7 +32,7 @@ Tasks:
 - Use the `ActivitySource` API to create additional custom traces.
 - Run the apps and observe how traces are linked together.
 
-# Exercise 4: Exploring Trace Attributes and Tags (10-15 mins)
+## Exercise 4: Exploring Trace Attributes and Tags (10-15 mins)
 
 Objective: Learn how to enrich trace data with meaningful information using attributes.
 
