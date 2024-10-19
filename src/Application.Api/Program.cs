@@ -28,36 +28,45 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 // Get all products
-app.MapGet("/api/products", () =>
+app.MapGet("/api/products", (ILogger<Program> logger) =>
     {
+        logger.LogInformation("Fetching the list of products.");
         return products;
     })
     .WithName("GetProducts")
     .WithOpenApi();
 
 // Place an order
-app.MapPost("/api/orders", (OrderRequest orderRequest) =>
+app.MapPost("/api/orders", (ILogger<Program> logger, OrderRequest orderRequest) =>
     {
+        logger.LogInformation("Attempting to place an order for product ID {ProductId} by {CustomerName}",
+            orderRequest.ProductId, orderRequest.CustomerName);
+    
         // Simulate processing time for order placement
         Thread.Sleep(Random.Shared.Next(200, 1000));
-
         var product = products.FirstOrDefault(p => p.Id == orderRequest.ProductId);
         if (product == null)
         {
+            logger.LogWarning("Product with ID {ProductId} not found.", orderRequest.ProductId);
             return Results.NotFound($"Product with ID {orderRequest.ProductId} not found.");
         }
-
+        
+        Thread.Sleep(Random.Shared.Next(200, 1000));
         var order = new Order(Guid.NewGuid(), orderRequest.CustomerName, product, DateTime.Now);
         orders.Add(order);
-
+        
+        logger.LogInformation("Order for {CustomerName} placed successfully with ID {OrderId}.",
+            orderRequest.CustomerName, order.Id);
         return Results.Ok(order);
     })
     .WithName("PlaceOrder")
     .WithOpenApi();
 
 // Get all orders
-app.MapGet("/api/orders", () =>
+app.MapGet("/api/orders", (ILogger<Program> logger) =>
     {
+        logger.LogInformation("Fetching the list of all orders.");
+        
         // Simulate delay in retrieving data
         Thread.Sleep(Random.Shared.Next(100, 500));
         return orders;
@@ -66,14 +75,16 @@ app.MapGet("/api/orders", () =>
     .WithOpenApi();
 
 // Get a specific order by ID
-app.MapGet("/api/orders/{id}", (Guid id) =>
+app.MapGet("/api/orders/{id}", (ILogger<Program> logger, Guid id) =>
     {
+        logger.LogInformation("Fetching order with ID {OrderId}.", id);
+        
         var order = orders.FirstOrDefault(o => o.Id == id);
         if (order == null)
         {
+            logger.LogWarning("Order with ID {OrderId} not found.", id);
             return Results.NotFound($"Order with ID {id} not found.");
         }
-
         return Results.Ok(order);
     })
     .WithName("GetOrderById")
