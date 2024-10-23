@@ -48,7 +48,6 @@ Objective: Learn to gather and visualize key performance metrics.
 
 Tasks:
 
-- Add the OpenTelemetry.Metrics package.
 - Set up a simple custom metric, like counting incoming API requests.
 - Visualize the metric using the console exporter or the Aspire Dashboard.
 
